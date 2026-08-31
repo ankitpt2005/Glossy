@@ -2,7 +2,7 @@
 
 :root {
   /* Gemini Minimalist Light Sky Theme */
-  --bg-canvas: #F8FAFC;
+  --bg-canvas: #FFFFFF;
   --bg-sky-radial: radial-gradient(circle at 50% 45%, #E2EDF9 0%, #EFF5FC 45%, #F8FAFC 80%, #FFFFFF 100%);
   --bg-surface: #FFFFFF;
 
