@@ -1,0 +1,25 @@
+# Environment & Secret Files
+.env
+.env.local
+*.env
+credentials.json
+token.json
+
+# Node dependencies & build
+node_modules/
+dist/
+build/
+.vite/
+
+# Python cache & virtualenv
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+ENV/
+
+# System files
+.DS_Store
+Thumbs.db

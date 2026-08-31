@@ -1,0 +1,327 @@
+{
+  "sessions": {
+    "sess_1788186344": {
+      "session_id": "sess_1788186344",
+      "user_id": "user_default",
+      "status": "ended",
+      "start_time": 1788186344.1484199,
+      "duration_minutes": 60,
+      "expected_end_time": 1788189944.1484203,
+      "stats": {
+        "total_triaged": 1,
+        "auto_sent": 0,
+        "drafted": 0,
+        "flagged": 1,
+        "commitments_logged": 1
+      },
+      "watch_res": {
+        "status": "mock_active",
+        "historyId": "999999",
+        "expiration": "1788272744150"
+      },
+      "end_time": 1788186352.8183494
+    },
+    "sess_1788186352": {
+      "session_id": "sess_1788186352",
+      "user_id": "user_default",
+      "status": "completed",
+      "start_time": 1788186352.8183532,
+      "duration_minutes": 60,
+      "expected_end_time": 1788189952.8183537,
+      "stats": {
+        "total_triaged": 3,
+        "auto_sent": 1,
+        "drafted": 0,
+        "flagged": 2,
+        "commitments_logged": 1
+      },
+      "watch_res": {
+        "status": "mock_active",
+        "historyId": "999999",
+        "expiration": "1788272752819"
+      },
+      "end_time": 1788186352.828978
+    },
+    "sess_1788189412": {
+      "session_id": "sess_1788189412",
+      "user_id": "user_default",
+      "status": "ended",
+      "start_time": 1788189412.19639,
+      "duration_minutes": 30,
+      "expected_end_time": 1788191212.1963902,
+      "stats": {
+        "total_triaged": 0,
+        "auto_sent": 0,
+        "drafted": 0,
+        "flagged": 0,
+        "commitments_logged": 0
+      },
+      "watch_res": {
+        "status": "mock_active",
+        "historyId": "999999",
+        "expiration": "1788275812199"
+      },
+      "end_time": 1788189414.3320308
+    },
+    "sess_1788189414": {
+      "session_id": "sess_1788189414",
+      "user_id": "user_default",
+      "status": "ended",
+      "start_time": 1788189414.3320355,
+      "duration_minutes": 30,
+      "expected_end_time": 1788191214.332036,
+      "stats": {
+        "total_triaged": 0,
+        "auto_sent": 0,
+        "drafted": 0,
+        "flagged": 0,
+        "commitments_logged": 0
+      },
+      "end_time": 1788192819.040234
+    },
+    "sess_1788192819": {
+      "session_id": "sess_1788192819",
+      "user_id": "user_default",
+      "status": "completed",
+      "start_time": 1788192819.0402384,
+      "duration_minutes": 60,
+      "expected_end_time": 1788196419.0402389,
+      "stats": {
+        "total_triaged": 3,
+        "auto_sent": 1,
+        "drafted": 0,
+        "flagged": 2,
+        "commitments_logged": 1
+      },
+      "watch_res": {
+        "status": "mock_active",
+        "historyId": "999999",
+        "expiration": "1788279219042"
+      },
+      "end_time": 1788192820.8340466
+    }
+  },
+  "commitments": [
+    {
+      "commitment_id": "comm_1788192819_2819",
+      "mail_id": "sim_1788192819",
+      "session_id": "sess_1788192819",
+      "owner": "User (Glossy Owner)",
+      "task": "Review Urgent: Q3 Budget Sign-off Required",
+      "to": "alex.client@enterprise.com",
+      "deadline": "Today 5:00 PM",
+      "status": "pending",
+      "extracted_at": 1788192819.6884406
+    },
+    {
+      "commitment_id": "comm_1788186352_6352",
+      "mail_id": "sim_1788186352",
+      "session_id": "sess_1788186352",
+      "owner": "User (Glossy Owner)",
+      "task": "Review Urgent: Q3 Budget Sign-off Required",
+      "to": "alex.client@enterprise.com",
+      "deadline": "Today 5:00 PM",
+      "status": "pending",
+      "extracted_at": 1788186352.8200295
+    },
+    {
+      "commitment_id": "comm_1788186344_6344",
+      "mail_id": "sim_1788186344",
+      "session_id": "sess_1788186344",
+      "owner": "User (Glossy Owner)",
+      "task": "Review Urgent: Q3 Budget Sign-off Required",
+      "to": "alex.client@enterprise.com",
+      "deadline": "Today 5:00 PM",
+      "status": "pending",
+      "extracted_at": 1788186344.1503706
+    }
+  ],
+  "mail_actions": [
+    {
+      "action_id": "act_1788192820_2820",
+      "mail_id": "sim_1788192820",
+      "session_id": "sess_1788192819",
+      "sender": "legal@vendor.net",
+      "subject": "Clause 4.2 Indemnity Revision",
+      "snippet": "Regarding the indemnification amendment, please review section 4.2 and let us know your stance on liabilities.",
+      "classification": "important",
+      "reply_needed": "ambiguous",
+      "action": "flagged_for_review",
+      "reasoning": "Unclear inquiry parameters requiring manual executive review.",
+      "suggested_reply": "Hi,\n\nThank you for reaching out regarding 'Clause 4.2 Indemnity Revision'. I will check the context and reply as soon as my focus session completes.\n\nRegards,",
+      "draft_details": {
+        "draft_id": "draft_1788192820",
+        "status": "mock_draft_created"
+      },
+      "commitments_count": 0,
+      "timestamp": 1788192820.826759,
+      "needs_browser_notification": true
+    },
+    {
+      "action_id": "act_1788192820_2819",
+      "mail_id": "sim_1788192819",
+      "session_id": "sess_1788192819",
+      "sender": "sarah.colleague@techcorp.org",
+      "subject": "Lunch today at 1 PM?",
+      "snippet": "Hey! Grab lunch at the bistro near office at 1 PM today?",
+      "classification": "low-stakes",
+      "reply_needed": "yes",
+      "action": "auto_sent",
+      "reasoning": "Casual social invitation or routine low-stakes check-in.",
+      "suggested_reply": "Hi! Sounds great. Let me check my schedule once I finish my current session and confirm shortly. Thanks!",
+      "draft_details": {
+        "message_id": "sent_1788192820",
+        "status": "mock_sent"
+      },
+      "commitments_count": 0,
+      "timestamp": 1788192820.215297,
+      "needs_browser_notification": false
+    },
+    {
+      "action_id": "act_1788192819_2819",
+      "mail_id": "sim_1788192819",
+      "session_id": "sess_1788192819",
+      "sender": "alex.client@enterprise.com",
+      "subject": "Urgent: Q3 Budget Sign-off Required",
+      "snippet": "Hi team, checking on the quarterly budget sign-off. Can you confirm approval by 5 PM today?",
+      "classification": "important",
+      "reply_needed": "yes",
+      "action": "flagged_for_review",
+      "reasoning": "High-priority inquiry mentioning critical business/financial keywords.",
+      "suggested_reply": "Hi,\n\nI have received your email regarding 'Urgent: Q3 Budget Sign-off Required' and am currently in a focus session. I will review the details thoroughly and get back to you shortly.\n\nBest regards,",
+      "draft_details": {
+        "draft_id": "draft_1788192819",
+        "status": "mock_draft_created"
+      },
+      "commitments_count": 1,
+      "timestamp": 1788192819.690596,
+      "needs_browser_notification": true
+    },
+    {
+      "action_id": "act_1788186352_6352",
+      "mail_id": "sim_1788186352",
+      "session_id": "sess_1788186352",
+      "sender": "legal@vendor.net",
+      "subject": "Clause 4.2 Indemnity Revision",
+      "snippet": "Regarding the indemnification amendment, please review section 4.2 and let us know your stance on liabilities.",
+      "classification": "important",
+      "reply_needed": "ambiguous",
+      "action": "flagged_for_review",
+      "reasoning": "Unclear inquiry parameters requiring manual executive review.",
+      "suggested_reply": "Hi,\n\nThank you for reaching out regarding 'Clause 4.2 Indemnity Revision'. I will check the context and reply as soon as my focus session completes.\n\nRegards,",
+      "draft_details": {
+        "draft_id": "draft_1788186352",
+        "status": "mock_draft_created"
+      },
+      "commitments_count": 0,
+      "timestamp": 1788186352.8244586,
+      "needs_browser_notification": true
+    },
+    {
+      "action_id": "act_1788186352_6352",
+      "mail_id": "sim_1788186352",
+      "session_id": "sess_1788186352",
+      "sender": "sarah.colleague@techcorp.org",
+      "subject": "Lunch today at 1 PM?",
+      "snippet": "Hey! Grab lunch at the bistro near office at 1 PM today?",
+      "classification": "low-stakes",
+      "reply_needed": "yes",
+      "action": "auto_sent",
+      "reasoning": "Casual social invitation or routine low-stakes check-in.",
+      "suggested_reply": "Hi! Sounds great. Let me check my schedule once I finish my current session and confirm shortly. Thanks!",
+      "draft_details": {
+        "message_id": "sent_1788186352",
+        "status": "mock_sent"
+      },
+      "commitments_count": 0,
+      "timestamp": 1788186352.8229752,
+      "needs_browser_notification": false
+    },
+    {
+      "action_id": "act_1788186352_6352",
+      "mail_id": "sim_1788186352",
+      "session_id": "sess_1788186352",
+      "sender": "alex.client@enterprise.com",
+      "subject": "Urgent: Q3 Budget Sign-off Required",
+      "snippet": "Hi team, checking on the quarterly budget sign-off. Can you confirm approval by 5 PM today?",
+      "classification": "important",
+      "reply_needed": "yes",
+      "action": "flagged_for_review",
+      "reasoning": "High-priority inquiry mentioning critical business/financial keywords.",
+      "suggested_reply": "Hi,\n\nI have received your email regarding 'Urgent: Q3 Budget Sign-off Required' and am currently in a focus session. I will review the details thoroughly and get back to you shortly.\n\nBest regards,",
+      "draft_details": {
+        "draft_id": "draft_1788186352",
+        "status": "mock_draft_created"
+      },
+      "commitments_count": 1,
+      "timestamp": 1788186352.82161,
+      "needs_browser_notification": true
+    },
+    {
+      "action_id": "act_1788186344_6344",
+      "mail_id": "sim_1788186344",
+      "session_id": "sess_1788186344",
+      "sender": "alex.client@enterprise.com",
+      "subject": "Urgent: Q3 Budget Sign-off Required",
+      "snippet": "Hi team, checking on the quarterly budget sign-off. Can you confirm approval by 5 PM today?",
+      "classification": "important",
+      "reply_needed": "yes",
+      "action": "flagged_for_review",
+      "reasoning": "High-priority inquiry mentioning critical business/financial keywords.",
+      "suggested_reply": "Hi,\n\nI have received your email regarding 'Urgent: Q3 Budget Sign-off Required' and am currently in a focus session. I will review the details thoroughly and get back to you shortly.\n\nBest regards,",
+      "draft_details": {
+        "draft_id": "draft_1788186344",
+        "status": "mock_draft_created"
+      },
+      "commitments_count": 1,
+      "timestamp": 1788186344.151521,
+      "needs_browser_notification": true
+    }
+  ],
+  "pending_replies": [
+    {
+      "followup_id": "fol_1788192820_sent_102",
+      "session_id": "sess_1788192819",
+      "original_mail_id": "sent_102",
+      "recipient": "hr@clientorg.io",
+      "subject": "Candidate Onboarding Schedule",
+      "days_pending": 4,
+      "followup_draft_id": "draft_1788192820",
+      "draft_body": "Hi, just following up on my previous note regarding 'Candidate Onboarding Schedule'. Please let me know if you need any additional details. Thanks!",
+      "created_at": 1788192820.8318832
+    },
+    {
+      "followup_id": "fol_1788192820_sent_101",
+      "session_id": "sess_1788192819",
+      "original_mail_id": "sent_101",
+      "recipient": "partner@vendorcorp.com",
+      "subject": "Proposal Agreement Sign-off",
+      "days_pending": 3,
+      "followup_draft_id": "draft_1788192820",
+      "draft_body": "Hi, just following up on my previous note regarding 'Proposal Agreement Sign-off'. Please let me know if you need any additional details. Thanks!",
+      "created_at": 1788192820.829929
+    },
+    {
+      "followup_id": "fol_1788186352_sent_102",
+      "session_id": "sess_1788186352",
+      "original_mail_id": "sent_102",
+      "recipient": "hr@clientorg.io",
+      "subject": "Candidate Onboarding Schedule",
+      "days_pending": 4,
+      "followup_draft_id": "draft_1788186352",
+      "draft_body": "Hi, just following up on my previous note regarding 'Candidate Onboarding Schedule'. Please let me know if you need any additional details. Thanks!",
+      "created_at": 1788186352.8274763
+    },
+    {
+      "followup_id": "fol_1788186352_sent_101",
+      "session_id": "sess_1788186352",
+      "original_mail_id": "sent_101",
+      "recipient": "partner@vendorcorp.com",
+      "subject": "Proposal Agreement Sign-off",
+      "days_pending": 3,
+      "followup_draft_id": "draft_1788186352",
+      "draft_body": "Hi, just following up on my previous note regarding 'Proposal Agreement Sign-off'. Please let me know if you need any additional details. Thanks!",
+      "created_at": 1788186352.8258133
+    }
+  ]
+}
