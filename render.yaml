@@ -1,0 +1,25 @@
+services:
+  # Python FastAPI Backend
+  - type: web
+    name: glossy-backend
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: GEMINI_MODEL
+        value: gemini-flash-latest
+
+  # React Vite Frontend Static Site
+  - type: web
+    name: glossy-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
