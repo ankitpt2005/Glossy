@@ -156,16 +156,25 @@ export function App() {
 
   return (
     <div className="minimal-viewport">
-      {/* Top Left New Chat Action */}
-      <button 
-        className="top-left-new-chat-btn"
-        title="New Chat / Reset Session"
-        onClick={handleNewChat}
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M12 5v14M5 12h14"></path>
-        </svg>
-      </button>
+      {/* Top Left Brand Logo & New Chat Action */}
+      <div style={{ position: 'absolute', top: '24px', left: '36px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <img 
+          src="/glossy-logo.png" 
+          alt="Glossy Logo" 
+          style={{ height: '36px', objectFit: 'contain', cursor: 'pointer' }}
+          onClick={handleNewChat}
+        />
+        <button 
+          className="top-left-new-chat-btn"
+          title="New Chat / Reset Session"
+          onClick={handleNewChat}
+          style={{ position: 'static' }}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M12 5v14M5 12h14"></path>
+          </svg>
+        </button>
+      </div>
 
       {/* Top Right Avatar Circle */}
       <button 
