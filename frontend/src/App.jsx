@@ -35,13 +35,13 @@ export function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // Fetch initial live data
+  // Fetch initial live data gracefully
   const fetchData = async () => {
     try {
       const [sessRes, actRes, commRes] = await Promise.all([
-        fetch('/api/session/current').then(r => r.json()),
-        fetch('/api/activity').then(r => r.json()),
-        fetch('/api/commitments').then(r => r.json())
+        fetch('/api/session/current').then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch('/api/activity').then(r => r.ok ? r.json() : null).catch(() => null),
+        fetch('/api/commitments').then(r => r.ok ? r.json() : null).catch(() => null)
       ]);
 
       if (sessRes && sessRes.active_session) {
@@ -57,14 +57,14 @@ export function App() {
       if (commRes && commRes.commitments) {
         setCommitments(commRes.commitments);
       }
-    } catch (err) {
-      console.error("[Dashboard Fetch Error]:", err);
+    } catch (_err) {
+      // Quietly suppress offline backend errors
     }
   };
 
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 4000);
+    const interval = setInterval(fetchData, 8000);
     return () => clearInterval(interval);
   }, []);
 
