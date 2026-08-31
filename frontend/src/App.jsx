@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Sidebar } from './components/Sidebar';
 import { HeroSection } from './components/HeroSection';
 import { CommandConsole } from './components/CommandConsole';
 import { ActivityCenter } from './components/ActivityCenter';
 import { CommitmentsTracker } from './components/CommitmentsTracker';
 import { EmailSimulator } from './components/EmailSimulator';
 import { SessionReportModal } from './components/SessionReportModal';
+import { AccountModal } from './components/AccountModal';
+import { SettingsModal } from './components/SettingsModal';
+import { HistoryDrawer } from './components/HistoryDrawer';
 import { notifyImportantEmail, notifySessionEnded } from './services/browser_notifications';
 
 export function App() {
@@ -16,7 +18,22 @@ export function App() {
   const [commitments, setCommitments] = useState([]);
   const [sessionReport, setSessionReport] = useState(null);
   const [isSimulatorOpen, setIsSimulatorOpen] = useState(false);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [selectedModel, setSelectedModel] = useState('Glossy Flash 3.5');
+  const [currentTime, setCurrentTime] = useState('');
+
+  // Live time ticker for bottom-left display (e.g. 10:05 AM)
+  useEffect(() => {
+    const updateClock = () => {
+      const now = new Date();
+      setCurrentTime(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    };
+    updateClock();
+    const timer = setInterval(updateClock, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Fetch initial live data
   const fetchData = async () => {
@@ -51,7 +68,7 @@ export function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleStartSession = async (durationMinutes) => {
+  const handleStartSession = async (durationMinutes = 60) => {
     try {
       const res = await fetch('/api/session/start', {
         method: 'POST',
@@ -95,7 +112,6 @@ export function App() {
       if (res && res.action) {
         const action = res.action;
         
-        // Trigger Native Browser Notification for Important / Ambiguous emails
         if (action.needs_browser_notification) {
           notifyImportantEmail(action.sender, action.subject, action.reasoning);
         }
@@ -119,83 +135,182 @@ export function App() {
     }
   };
 
+  // Reset / New Chat Action
+  const handleNewChat = () => {
+    setActiveTab('home');
+    setIsHistoryOpen(false);
+    setIsSimulatorOpen(false);
+  };
+
+  // Delete Section / Clear All Activity History Action
+  const handleClearAllHistory = () => {
+    setActivities([]);
+    setCommitments([]);
+    setActiveTab('home');
+  };
+
+  // Delete Single Activity Entry
+  const handleDeleteActivity = (id) => {
+    setActivities(prev => prev.filter((act, idx) => (act.id !== id && idx !== id)));
+  };
+
   return (
-    <div className="app-viewport">
-      <div className="app-glass-frame">
-        {/* Slim Icon Navigation Sidebar */}
-        <Sidebar
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          activeSession={activeSession}
+    <div className="minimal-viewport">
+      {/* Top Left New Chat Action */}
+      <button 
+        className="top-left-new-chat-btn"
+        title="New Chat / Reset Session"
+        onClick={handleNewChat}
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12 5v14M5 12h14"></path>
+        </svg>
+      </button>
+
+      {/* Top Right Avatar Circle */}
+      <button 
+        className="top-right-avatar-btn" 
+        title="Account Profile"
+        onClick={() => setIsAccountOpen(true)}
+      >
+        A
+      </button>
+
+      {/* Center Main Content Area */}
+      <main className="center-workspace">
+        <HeroSection />
+
+        <CommandConsole
+          onSimulateClick={() => setIsSimulatorOpen(true)}
+          onQuerySubmit={handleQuerySubmit}
           onStartSession={handleStartSession}
           onEndSession={handleEndSession}
-          onOpenSimulator={() => setIsSimulatorOpen(true)}
+          activeSession={activeSession}
+          selectedModel={selectedModel}
+          setSelectedModel={setSelectedModel}
         />
 
-        {/* Main Gemini Workspace Area with Glossy Context */}
-        <main className="main-content-area">
-          {/* Top Right Pencil Edit Button */}
+        {/* Optional Active Workspace Tab Panels */}
+        {activeTab === 'activity' && (
+          <div className="center-tab-overlay">
+            <div className="tab-header-row">
+              <h3>Live Activity Feed</h3>
+              <button onClick={() => setActiveTab('home')} className="icon-close-btn">✕</button>
+            </div>
+            <ActivityCenter activities={activities} />
+          </div>
+        )}
+
+        {activeTab === 'commitments' && (
+          <div className="center-tab-overlay">
+            <div className="tab-header-row">
+              <h3>Extracted Commitments</h3>
+              <button onClick={() => setActiveTab('home')} className="icon-close-btn">✕</button>
+            </div>
+            <CommitmentsTracker commitments={commitments} />
+          </div>
+        )}
+      </main>
+
+      {/* Bottom Minimalist Navigation Bar */}
+      <footer className="bottom-minimal-bar">
+        {/* Bottom Left Live Clock */}
+        <div className="bottom-clock-display">
+          {currentTime || '10:05 AM'}
+        </div>
+
+        {/* Bottom Center Icon Strip */}
+        <div className="bottom-icon-strip">
           <button 
-            className="top-right-edit-btn" 
-            title="New Glossy Session"
-            onClick={() => setActiveTab('home')}
+            className="bottom-icon-btn" 
+            title="Previous Chats & History"
+            onClick={() => setIsHistoryOpen(true)}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 20h9"></path>
-              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
           </button>
 
-          {/* Center Gemini Hero Headline with Glossy Personalization */}
-          <HeroSection />
+          <button 
+            className="bottom-icon-btn" 
+            title="Email Simulator"
+            onClick={() => setIsSimulatorOpen(true)}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </button>
 
-          {/* Center Gemini Capsule Command Console */}
-          <CommandConsole
-            onSimulateClick={() => setIsSimulatorOpen(true)}
-            onQuerySubmit={handleQuerySubmit}
-            onStartSession={handleStartSession}
-            onEndSession={handleEndSession}
-            activeSession={activeSession}
-            selectedModel={selectedModel}
-            setSelectedModel={setSelectedModel}
-          />
+          <button 
+            className="bottom-icon-btn" 
+            title="Settings"
+            onClick={() => setIsSettingsOpen(true)}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </button>
+        </div>
 
-          {/* Dynamic Activity / Commitment Content Tabs */}
-          {activeTab === 'activity' && (
-            <div className="dashboard-content-tabs">
-              <ActivityCenter activities={activities} />
-            </div>
+        {/* Bottom Right Active Guardrail Toggle */}
+        <div className="bottom-right-action">
+          {activeSession ? (
+            <button className="btn-end-session-red" onClick={handleEndSession}>
+              End Session
+            </button>
+          ) : (
+            <button className="btn-start-session-navy" onClick={() => handleStartSession(60)}>
+              Start Guardrail
+            </button>
           )}
+        </div>
 
-          {activeTab === 'commitments' && (
-            <div className="dashboard-content-tabs">
-              <CommitmentsTracker commitments={commitments} />
-            </div>
-          )}
-        </main>
-      </div>
+        {/* Bottom Right Soft Sparkle Star Watermark */}
+        <div className="bottom-sparkle-star">
+          ✦
+        </div>
+      </footer>
 
-      {/* Email Simulator Modal Dialog */}
+      {/* Account Profile Modal */}
+      {isAccountOpen && (
+        <AccountModal onClose={() => setIsAccountOpen(false)} />
+      )}
+
+      {/* System Settings Modal */}
+      {isSettingsOpen && (
+        <SettingsModal 
+          onClose={() => setIsSettingsOpen(false)} 
+          onClearHistory={handleClearAllHistory}
+        />
+      )}
+
+      {/* Previous Chats & Activity History Drawer */}
+      <HistoryDrawer 
+        isOpen={isHistoryOpen} 
+        onClose={() => setIsHistoryOpen(false)}
+        activities={activities}
+        onDeleteActivity={handleDeleteActivity}
+      />
+
+      {/* Email Simulator Modal */}
       {isSimulatorOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content" style={{ maxWidth: '650px' }}>
+        <div className="modal-overlay" onClick={() => setIsSimulatorOpen(false)}>
+          <div className="modal-content glossy-card" onClick={e => e.stopPropagation()} style={{ maxWidth: '650px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-              <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#1F1F1F' }}>
-                Interactive Email Simulator
+              <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#1F1F1F', margin: 0 }}>
+                ✉️ Interactive Email Simulator
               </h3>
-              <button 
-                onClick={() => setIsSimulatorOpen(false)}
-                style={{ color: '#747775', fontSize: '18px', fontWeight: 700 }}
-              >
-                ✕
-              </button>
+              <button onClick={() => setIsSimulatorOpen(false)} className="icon-close-btn">✕</button>
             </div>
             <EmailSimulator onSimulate={handleSimulateEmail} />
           </div>
         </div>
       )}
 
-      {/* Session Executive Briefing Report Modal */}
+      {/* Executive Session Briefing Report Modal */}
       {sessionReport && (
         <SessionReportModal
           report={sessionReport}
